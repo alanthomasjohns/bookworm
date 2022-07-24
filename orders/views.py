@@ -1,5 +1,6 @@
 import datetime
-from django.http import JsonResponse
+from turtle import update
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render,redirect
 
 from carts.models import Cart, CartItem
@@ -162,3 +163,22 @@ def order_complete(request):
     return render(request, 'orders/order_complete.html')
     # except(Payment.DoesNotExist, Order.DoesNotExist):
     #     return redirect('home')
+
+
+def order_update(request):
+    if request.method == "POST":
+        order_id = request.POST.get('order_id')
+        try:
+            order = Order.objects.filter(order_id=order_id)
+            if len(order)>0:
+                updates = []
+                for item in update:
+                    updates.append({'text' : item.update_desc, 'time' : item.timestamp})
+                    response = json.dumps(updates)
+                    return HttpResponse(response)
+            else:
+                pass 
+        except Exception as e:
+            pass
+            
+    return render(request, 'orders/order_update.html')

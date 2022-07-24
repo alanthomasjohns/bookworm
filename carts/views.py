@@ -5,10 +5,14 @@ from category.models import Coupon
 from django.contrib import messages
 
 from store.models import Product, Variation
+from orders.models import OrderUpdate,Order,Payment
+from orders.views import *
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 import razorpay
 from django.conf import settings
+
+
 
 # Create your views here.
 
@@ -43,23 +47,6 @@ def add_cart(request, product_id):
             cart_item.save()
             ex_var_list = []
             id = []
-            # for item in cart_item:
-            #     existing_variation = item.variations.all()
-            #     ex_var_list.append(existing_variation)
-            #     id.append(item.id)
-
-            # if product_variation in ex_var_list:
-            #     index = ex_var_list.index(product_variation)
-            #     item_id = id[index]
-            #     item = CartItem.objects.get(product=product, id = item_id)
-            #     item.quantity += 1
-            #     item.save()
-            # else:
-            #     item = CartItem.objects.create(product=product, quantity=1, user=current_user)
-            #     if len(product_variation) > 0:
-            #         item.variations.clear()
-            #         item.variations.add(*product_variation)
-            #     item.save()
         else:
             cart_item = CartItem.objects.create(
                 product = product,
@@ -102,25 +89,6 @@ def add_cart(request, product_id):
 
             ex_var_list = []
             id = []
-            # for item in cart_item:
-            #     existing_variation = item.variations.all()
-            #     ex_var_list.append(existing_variation)
-            #     id.append(item.id)
-
-            # print(ex_var_list)
-
-            # if product_variation in ex_var_list:
-            #     index = ex_var_list.index(product_variation)
-            #     item_id = id[index]
-            #     item = CartItem.objects.get(product=product, id = item_id)
-            #     item.quantity += 1
-            #     item.save()
-            # else:
-            #     item = CartItem.objects.create(product=product, quantity=1, cart=cart)
-            #     if len(product_variation) > 0:
-            #         item.variations.clear()
-            #         item.variations.add(*product_variation)
-            #     item.save()
         else:
             cart_item = CartItem.objects.create(
                 product = product,
@@ -203,16 +171,6 @@ def cart(request, total=0, quantity=0, cart_items=None):
 
     except ObjectDoesNotExist:
         pass
-
-    # client = razorpay.Client(auth = (settings.KEY, settings.SECRET))
-    # payment = client.order.create({ 'amount' : total*100, 'currency' : 'INR', 'payment_capture' : 1 })
-    # cart_item.razor_pay_order_id = payment['id']
-    # cart_item.save()
-    
-
-    # print('*****')
-    # print(payment)
-    # print('*****')
     
 
     context = {
@@ -229,7 +187,7 @@ def cart(request, total=0, quantity=0, cart_items=None):
 
 
 @login_required(login_url='login')
-def checkout(request, total=0, quantity=0, cart_items=None):
+def checkout(request, total=0, quantity=0, cart_items=None,):
     try:
         tax = 0
         grand_total = 0

@@ -12,22 +12,7 @@ def _wishlist_id(request):
     return wishlist
 
 def add_wishlist(request,product_id):
-    product = Product.objects.get(id= product_id) #get the product
-    product_variation = []
-    if request.method == 'POST':
-        for item in request.POST:
-            key = item
-            value = request.POST[key]
-            try:
-                variation = Variation.objects.get(
-                    product = product,
-                    variation_category__iexact = key ,
-                    variation_value__iexact = value,
-                    )
-                product_variation.append(variation)
-
-            except:
-                pass    
+    product = Product.objects.get(id= product_id) #get the product  
     try:    
         wishlist = Wishlist.objects.get(wishlist_id = _wishlist_id(request))
 
@@ -38,41 +23,13 @@ def add_wishlist(request,product_id):
     is_wishlist_item_exists = WishlistItem.objects.filter(product = product, wishlist = wishlist).exists()
     if is_wishlist_item_exists:
         wishlist_item = WishlistItem.objects.filter(product=product,wishlist=wishlist)
-        # existing variations
-        # current variations
-        # item id
-        ex_var_list = []
-        id = []
-        # for item in wishlist_item:
-        #     existing_variation = item.variations.all()
-        #     ex_var_list.append(list(existing_variation))
-        #     id.append(item.id)
-
-        # print(ex_var_list)
-
-        if product_variation in ex_var_list:
-            # increase wishlist item quantity
-            index = ex_var_list.index(product_variation)
-            item_id = id[index]
-            item = WishlistItem.objects.get(product=product, id=item_id)
-            item.save()
-        else:
-            item = WishlistItem.objects.create(product=product,wishlist = wishlist)
-            # create a new wishlist item 
-            if len(product_variation) > 0:   #product variations
-                item.variations.clear()
-                item.variations.add(*product_variation)
-            item.save()
+        pass
 
     else:
         wishlist_item = WishlistItem.objects.create(
             product=product,
             wishlist = wishlist,
         )
-        if len(product_variation) > 0:   #product variations else case
-            wishlist_item.variations.clear()
-            wishlist_item.variations.add(*product_variation)
-        wishlist_item.save()
     return redirect ('wishlist')
 
 def remove_wishlist_item(request,product_id,wishlist_item_id):
@@ -85,11 +42,8 @@ def remove_wishlist_item(request,product_id,wishlist_item_id):
 
 def wishlist(request,wishlist_items=None):
     try:
-        if request.user.is_authenticated:
-            wishlist_items = WishlistItem.objects.filter(user=request.user, is_active=True)
-        else:
-            wishlist = Wishlist.objects.get(wishlist_id=_wishlist_id(request))
-            wishlist_items = WishlistItem.objects.filter(wishlist=wishlist, is_active = True)
+        wishlist = Wishlist.objects.get(wishlist_id=_wishlist_id(request))
+        wishlist_items = WishlistItem.objects.filter(wishlist=wishlist, is_active = True)
 
     except ObjectDoesNotExist:
         pass        

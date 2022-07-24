@@ -298,4 +298,8 @@ def order_detail(request, order_id):
     return render(request, 'accounts/order_detail.html', context)
 
 
+def cancel_order(request, order_id):
+    return redirect (request, 'accounts/order_detail.html')
+
+
         

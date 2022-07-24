@@ -70,3 +70,13 @@ class OrderProduct(models.Model):
 
     def __str__(self):
         return self.product.product_name
+
+
+class OrderUpdate(models.Model):
+    update_id = models.AutoField(primary_key=True)
+    order_id = models.IntegerField()
+    update_desc = models.CharField(max_length=500)
+    timestamp = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.update_desc[0:7] + "..."
