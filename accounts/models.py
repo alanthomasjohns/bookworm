@@ -1,5 +1,3 @@
-from hashlib import blake2b
-from tokenize import blank_re
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 

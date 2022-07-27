@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-from ctypes import cast
 from email.policy import default
 from pathlib import Path
 from decouple import config
@@ -89,11 +88,12 @@ AUTH_USER_MODEL = 'accounts.Account'
 
 DATABASES = {
     'default': {
-        'ENGINE': config('ENGINE'),
-        'NAME': config('NAME'),
-        'USER': config('USER'),
-        'PASSWORD': config('PASSWORD'),
-        'HOST': config('HOST')
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'ubuntu',
+        'USER': 'ubuntu',
+        'PASSWORD': 'trial1222',
+        'HOST': 'database-1.clamcj0xq7fl.ap-south-1.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -184,5 +184,5 @@ EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-KEY = 'rzp_test_1QXaC4gmNQTUQr'
-SECRET = 'VnCB5LbcWskeMPeIWb3h2Vd3'
+KEY = config('KEY')
+SECRET = config('SECRET')

@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from .models import Wishlist, WishlistItem
 from .views import _wishlist_id
 

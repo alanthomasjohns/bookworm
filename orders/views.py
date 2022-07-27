@@ -8,7 +8,6 @@ from orders.models import Order, OrderProduct, Payment
 from store.models import Product
 from .forms import OrderForm
 import razorpay
-from django.conf import settings
 import json
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string

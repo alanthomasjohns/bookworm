@@ -9,7 +9,6 @@ from orders.models import OrderUpdate,Order,Payment
 from orders.views import *
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
-import razorpay
 from django.conf import settings
 
 

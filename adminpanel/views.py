@@ -1,4 +1,3 @@
-from itertools import product
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from accounts.models import Account
