@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from accounts.models import Account
 from carts.models import Cart, CartItem
 from orders.models import Order, OrderProduct
+from store.models import Product
 from .forms import RegistrationForm, UserForm, UserProfileForm
 from .models import Account, UserProfile
 from django.contrib import messages, auth
@@ -283,7 +284,7 @@ def change_password(request):
     return render(request, 'accounts/change_password.html')
 
 
-@login_required(login_url="login")
+
 def order_detail(request, order_id):
     order_detail = OrderProduct.objects.filter(order__order_number=order_id)
     order = Order.objects.get(order_number=order_id)
@@ -298,8 +299,11 @@ def order_detail(request, order_id):
     return render(request, 'accounts/order_detail.html', context)
 
 
-def cancel_order(request, order_id):
-    return redirect (request, 'accounts/order_detail.html')
+def cancel_order(request,id):
+    order = Order.objects.get(id=id)
+    order.delete()
+    return redirect(request, 'accounts/order_detail.html')
+    
 
 
         

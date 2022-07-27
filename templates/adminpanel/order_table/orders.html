@@ -22,40 +22,42 @@
                 <thead>
 
                     <tr>
-                        <th>Product</th>
-                        <th>User</th>
-                        <th>Order</th>
-                        <th>Quantity</th>
-                        <th>Product price</th>
-                        <th>Payment ID</th>
-                    </tr>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>User</th>
+                            <!-- <th>Order</th> -->
+                            <!-- <th>Quantity</th> -->
+                            <th>Product price</th>
+                            <th>Order Date</th>
+                            <th>Payment ID</th>
+                        </tr>
                 </thead>
 
                 <tfoot>
                     <tr>
-                        <th>Product</th>
+                        <th>Order ID</th>
                         <th>User</th>
-                        <th>Order</th>
-                        <th>Quantity</th>
+                        <!-- <th>Order</th> -->
+                        <!-- <th>Quantity</th> -->
                         <th>Product price</th>
+                        <th>Order Date</th>
                         <th>Payment ID</th>
                     </tr>
                 </tfoot>
 
                 <tbody>
 
-                    {% if order_products %}
-                        {% for order_prodcut in order_products %}
-                            <tr>
-                                <td>{{order_prodcut.product}}</td>
-                                <td>{{order_prodcut.user}}</td>
-                                <td>{{order_prodcut.order}}</td>
-                                <td>{{order_prodcut.quantity}}</td>
-                                <td>₹ {{order_prodcut.product_price}}</td>
-                                <td>{{order_prodcut.payment_id}}</td>
-                            </tr>
-                        {% endfor %}
-                    {% endif %}
+                    {% for order in orders %}
+                    <tr>
+                      <th scope="row"> <a href="{% url 'user_orders' order.order_number %}">{{order.order_number}}</a></th>
+                      <td>{{order.email}}</td>
+                      <!-- <td>{{order.phone}}</td> -->
+                      <td>₹{{order.order_total}}</td>
+                      <td>{{order.created_at}}</td>
+                      <td>{{order.payment_id}}</td>
+                      
+                    </tr>
+                    {% endfor %}
                     
                 </tbody>
             </table>

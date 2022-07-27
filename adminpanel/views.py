@@ -204,7 +204,7 @@ def delete_sub_category(request,id):
            
 
 def order_table(request,id):
-    orders = Order.objects.all()
+    orders = Order.objects.all().order_by('-created_at')
     order_products = OrderProduct.objects.all()
     payments = Payment.objects.all()
     context = {
@@ -283,3 +283,17 @@ def delete_product(request,id):
 
 def adminpanel(request):
     return render (request,'adminpanel/adminpanel.html')
+
+
+def user_orders(request, order_id):
+    order_detail = OrderProduct.objects.filter(order__order_number=order_id)
+    order = Order.objects.get(order_number=order_id)
+    subtotal = 0
+    for i in order_detail:
+        subtotal += i.product_price * i.quantity
+    context = {
+        'order_detail' : order_detail,
+        'order' : order,
+        'subtotal' : subtotal,
+    }
+    return render(request, 'adminpanel/order_table/user_orders.html', context)

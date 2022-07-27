@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'orders',
     'wishlist',
     'adminpanel',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -92,7 +93,7 @@ DATABASES = {
         'NAME': 'books',
         'USER': 'postgres',
         'PASSWORD': 'trial1222',
-        'HOST': 'localhost'
+        'HOST': 'database-2.ceen8zjlllsl.us-east-1.rds.amazonaws.com'
     }
 }
 
@@ -131,11 +132,35 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'static'
+# STATIC_URL = 'static/'
+# STATIC_ROOT = BASE_DIR / 'static'
+# STATICFILES_DIRS = [
+#     'books_com/static',
+# ]
+
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_FILE_OVERWRITE = False
+
+AWS_ACCESS_KEY_ID = 'AKIA2OCL72DO6UDFON65'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'bookwormdjango-bucket'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl' : 'max-age=86400',
+}
+
+AWS_DEFAULT_ACL = None
+AWS_LOCATION = 'static'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+
 STATICFILES_DIRS = [
-    'books_com/static',
+    'static',
 ]
+STATIC_URL = 'http://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN,AWS_LOCATION)
+
+
 
 # media files configuration
 MEDIA_URL = '/media/'
