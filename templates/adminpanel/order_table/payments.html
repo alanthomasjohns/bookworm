@@ -8,8 +8,7 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Payment Table</h1>
-    <p class="mb-4">Payment Details</p>
+    <h1 class="h3 mb-2 text-gray-800"><u>Payment List</u></h1>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -43,13 +42,13 @@
                 <tbody>
                     
                     {% if payments %}
-                        {% for pay in payments %}
+                        {% for payment in payments %}
                             <tr>
-                                <td>{{pay.user}}</td>
-                                <td>{{pay.payment_method}}</td>
-                                <td>{{pay.payment_id}}</td>
-                                <td>₹ {{pay.amount_paid}}</td>
-                                <td>{{pay.status}}</td>
+                                <td>{{payment.user}}</td>
+                                <td>{{payment.payment_method}}</td>
+                                <td>{{payment.payment_id}}</td>
+                                <td> ₹{{payment.amount_paid}}</td>
+                                <td>{{payment.status}}</td>
                             </tr>
                         {% endfor %}
                     {% endif %}

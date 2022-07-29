@@ -3,12 +3,14 @@ from .import views
 
 urlpatterns = [
     path('',views.adminpanel,name="adminpanel"),
-    path('admin_login/',views.admin_login,name="admin_login"),
-    path('user_accounts_table/',views.user_accounts_table,name="user_accounts_table"),
+    path('adminlogin/', views.adminlogin, name='adminlogin'),
+    
+    path('user_accounts_table/<int:id>',views.user_accounts_table,name="user_accounts_table"),
     path('cart_table/<int:id>',views.cart_table,name="cart_table"),
     path('category_table/<int:id>/',views.category_table,name="category_table"),
     path('order_table/<int:id>/',views.order_table,name='order_table'),
     path('store_table/<int:id>/',views.store_table,name="store_table"),
+    path('home_table/<int:id>/',views.home_table,name="home_table"),
 
     path('ban_user/<int:id>/',views.ban_user,name="ban_user"),
     path('unban_user/<int:id>/',views.unban_user,name='unban_user'),
@@ -29,9 +31,16 @@ urlpatterns = [
     path('edit_product/<int:id>/',views.edit_product,name='edit_product'),
     path('delete_product/<int:id>/',views.delete_product,name="delete_product"),
 
-    path('user_orders/<int:order_id>/', views.user_orders, name="user_orders"),
-    
+    path('add_carousels/',views.add_carousels,name="add_carousels"),
+    path('edit_carousel/<int:id>/',views.edit_carousel,name='edit_carousel'),
+    path('carousel_not_available/<int:id>/',views.carousel_not_available,name="carousel_not_available"),
+    path('caraousel_available/<int:id>/',views.caraousel_available,name='caraousel_available'),
+    path('delete_carousel/<int:id>/',views.delete_carousel,name="delete_carousel"),
 
+    path('order_accepted/<int:order_id>',views.order_accepted,name="order_accepted"),
+    path('order_completed/<int:order_id>',views.order_completed,name="order_completed"),
+    path('order_cancelled/<int:order_id>',views.order_cancelled,name="order_cancelled"),
 
+    path('admin_search',views.admin_search,name="admin_search")
     
 ]

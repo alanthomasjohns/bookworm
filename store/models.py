@@ -77,10 +77,32 @@ class ReviewRating(models.Model):
         return self.subject
 
 
+class Carousel(models.Model):
+    category    = models.ForeignKey(Category,on_delete=models.CASCADE)
+    title       = models.CharField(max_length=100)
+    banner_image       = models.ImageField(upload_to='products')
+    is_available = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.title
+
+
 class BestSellers(models.Model):
     product = models.OneToOneField(Product, on_delete=models.CASCADE)
     is_best = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.product
+
+
+class ProductGallery(models.Model):
+    product = models.ForeignKey(Product, default=None, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to = 'products',max_length = 225)
+
+    def __str__(self):
+        return self.product.product_name
+
+    class Meta:
+        verbose_name = 'productgallery'
+        verbose_name_plural = 'product gallery' 
 
