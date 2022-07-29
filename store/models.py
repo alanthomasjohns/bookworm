@@ -93,16 +93,5 @@ class BestSellers(models.Model):
 
     def __unicode__(self):
         return self.product
-
-
-class ProductGallery(models.Model):
-    product = models.ForeignKey(Product, default=None, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to = 'products',max_length = 225)
-
-    def __str__(self):
-        return self.product.product_name
-
-    class Meta:
-        verbose_name = 'productgallery'
-        verbose_name_plural = 'product gallery' 
+ 
 

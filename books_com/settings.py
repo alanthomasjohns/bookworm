@@ -75,6 +75,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'category.context_processors.menu_links',   #linked the category/context processor to display the categories dropdown
                 'carts.context_processors.counter',
+                # 'wishlist.context_processors.counterr'
             ],
         },
     },

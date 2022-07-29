@@ -6,7 +6,7 @@ from category.forms import MainCategoryForm,CategoryForm,SubCategoryForm
 from category.models import MainCategory,SubCategory,Category
 from orders.models import Order, OrderProduct, Payment
 from store.forms import ProductForm
-from store.models import BestSellers, Carousel, Product, ProductGallery, Variation
+from store.models import BestSellers, Carousel, Product, Variation
 from home.models import Awesome
 from home.forms import CarouselForm
 from django.template.defaultfilters import slugify
