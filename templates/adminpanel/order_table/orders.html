@@ -41,7 +41,10 @@
                                 <td>₹{{order.order_total}}</td>
                                 <td>{{order.created_at}}</td>
                                 <td>{{order.address_line_1}}</td>
-                                <td class="text-success">active</td>
+                                <a href="" class="btn-btn-success">
+                                    <td class="">{{order.status}}</td>
+                                </a>
+                                <td></td>
 
                             </tr>
                         {% endfor %}

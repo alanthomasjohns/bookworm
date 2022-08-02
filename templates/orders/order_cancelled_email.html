@@ -1,0 +1,13 @@
+{% autoescape off %}  
+
+Hi {{ user.first_name }},
+Your order has been cancelled! Your refund has been initiated and would be credited within 5-7 working days.
+
+
+Order Details:
+Order Number : {{order.order_number}}
+Amount Paid : {{order.order_total}} (Full amount will be refunded!!)
+Date Ordered : {{order.created_at}}
+
+
+{% endautoescape %}

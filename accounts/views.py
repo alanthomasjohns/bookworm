@@ -152,7 +152,7 @@ def activate(request, uidb64, token):
 
 @login_required(login_url='login')
 def dashboard(request):
-    orders = Order.objects.order_by('-created_at').filter(user_id=request.user.id, is_ordered=True)
+    orders = Order.objects.order_by('-created_at').filter(user_id=request.user.id, is_ordered=True, status = 'New')
     orders_count = orders.count()
     UserProfile.objects.get_or_create(user=request.user)
     userprofile = UserProfile.objects.get(user_id=request.user.id)
@@ -230,7 +230,7 @@ def resetPassword(request):
 
 @login_required(login_url="login")
 def my_orders(request):
-    orders = Order.objects.filter(user=request.user, is_ordered=True).order_by('-created_at')
+    orders = Order.objects.filter(user=request.user, is_ordered=True, status ='New').order_by('-created_at')
     context = {
         'orders' : orders,
     }
@@ -299,10 +299,28 @@ def order_detail(request, order_id):
     return render(request, 'accounts/order_detail.html', context)
 
 
-def cancel_order(request,id):
-    order = Order.objects.get(id=id)
-    order.delete()
-    return redirect(request, 'accounts/order_detail.html')
+def cancel_order(request,order_id):
+    order = Order.objects.get(id=order_id)
+    order.status = 'Cancelled'
+    order.save()
+
+    mail_subject = 'Hey There!. Your order has been cancelled!'
+    mail_subject = 'Order Cancelled'
+    message = render_to_string('orders/order_cancelled_email.html',{
+        'user':request.user,
+        'order':order,
+        # 'domain':current_site,
+        # 'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+        # 'token':default_token_generator.make_token(user)
+    })
+    to_email = request.user.email
+    print(to_email)
+    send_email = EmailMessage(mail_subject, message, to=[to_email])
+    send_email.send()
+
+    messages.success(request, 'Cancellation email has been sent to your email address')
+    return render(request,'accounts/order_cancel_success.html')
+    
     
 
 

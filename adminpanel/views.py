@@ -386,11 +386,6 @@ def add_product(request):
                 product.save()
 
                 images = request.FILES.getlist('images')
-                for image in images:
-                    ProductGallery.objects.create(
-                        image = image,
-                        product = product,
-                    )
                 return redirect('store_table',id=1)
         else:
             form = ProductForm()
@@ -415,11 +410,6 @@ def edit_product(request,id):
                 product.save()
 
                 images = request.FILES.getlist('images')
-                for image in images:
-                    ProductGallery.objects.create(
-                        image = image,
-                        product = product,
-                    )
                 return redirect('store_table',id=1)
         else:
             form = ProductForm(instance=product)

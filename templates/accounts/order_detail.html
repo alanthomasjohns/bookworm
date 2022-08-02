@@ -97,7 +97,11 @@
                                                 <th colspan="2" class="text-right">Grand Total:</th>
                                                 <th class="text-center">{{order.order_total}}</th>
                                             </tr>
-                                            <a href="{% url 'order_update' %}" class="btn btn-btn-info">Track Order</a>
+
+                                            <div class="cancel">
+                                            <a href="{% url 'cancel_order' order.id %}" class="btn btn-btn-danger" onclick="return confirm('Are you sure you want to cancel the order with the order number {{order.order_number}}? You cannot undo the changes!')">Cancel Order</a>
+                                            </div>
+                                            
                                         </tfoot>
                                        
                                     <!-- </table> -->
@@ -116,4 +120,4 @@
         </div>
         </div>
 
-{% endblock %}
+    {% endblock %}

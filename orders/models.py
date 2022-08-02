@@ -1,3 +1,4 @@
+from audioop import reverse
 from django.db import models
 
 from accounts.models import Account
@@ -53,6 +54,9 @@ class Order(models.Model):
 
     def __str__(self):
         return self.first_name
+
+    def get_cancel_booking_url(self):
+        return reverse('CancelOrderView', args=[self.pk, ])
 
 
 class OrderProduct(models.Model):
