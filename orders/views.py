@@ -174,7 +174,7 @@ def order_update(request):
                 for item in update:
                     updates.append({'text' : item.update_desc, 'time' : item.timestamp})
                     response = json.dumps(updates)
-                    return HttpResponse(response)
+                    return HttpResponse(response) #something
             else:
                 pass 
         except Exception as e:
