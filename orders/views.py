@@ -147,21 +147,21 @@ def place_order(request,total=0, quantity=0):
 
 
 def order_complete(request):
-    # order_number = request.GET.get('razorpay_order_id')
-    # transID = request.GET.get('razorpay_payment_id')
+    order_number = request.GET.get('razorpay_order_id')
+    transID = request.GET.get('razorpay_payment_id')
 
-    # try:
-    #     order = Order.objects.get(order_number=order_number, is_ordered=True)
-    #     ordered_products = OrderProduct.objects.filter(order_id=order.id)
+    try:
+        order = Order.objects.get(order_number=order_number, is_ordered=True)
+        ordered_products = OrderProduct.objects.filter(order_id=order.id)
 
-    #     context = {
-    #         'order':order,
-    #         'ordered_products':ordered_products,
-    #         'order_number':order.order_number,
-    #     }
-    return render(request, 'orders/order_complete.html')
-    # except(Payment.DoesNotExist, Order.DoesNotExist):
-    #     return redirect('home')
+        context = {
+            'order':order,
+            'ordered_products':ordered_products,
+            'order_number':order.order_number,
+        }
+        return render(request, 'orders/order_complete.html', context)
+    except(Payment.DoesNotExist, Order.DoesNotExist):
+        return redirect('home')
 
 
 def order_update(request):
